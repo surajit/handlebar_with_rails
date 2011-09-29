@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<script id="showBook" type="text/x-handlebars-template">
+  <p>
+	  <b>Name:</b>
+	  {{name}}
+	</p>
+
+	<p>
+	  <b>Author:</b>
+	  {{author}}
+	</p>
+
+	<p>
+	  <b>Publisher:</b>
+	  {{publisher}}
+	</p>
+
+	
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+ 		var source = $("#bookList").html();
+		var template = Handlebars.compile(source);
+	  $.ajax({
+		   type: "GET",
+		   url: "/books/",
+		   dataType: "json",
+		   success: function(json){
+				 $("#listOfBooks").html(template(json));
+				console.log(template(json));
+		   }
+		 });
+});
+</script>

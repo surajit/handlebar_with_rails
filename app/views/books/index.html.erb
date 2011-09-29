@@ -1,0 +1,43 @@
+<h1>Listing books</h1>
+<div id="listOfBooks"></div>
+<script id="bookList" type="text/x-handlebars-template">
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Author</th>
+    <th>Publisher</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+{{#each this}}
+  <tr>
+    <td>{{name}}</td>
+    <td>{{author}}</td>
+    <td>{{publisher}}</td>
+
+  </tr>
+{{/each}}
+</table>
+</script>
+<br />
+
+<%= link_to 'New Book', new_book_path %>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+ 		var source = $("#bookList").html();
+		var template = Handlebars.compile(source);
+	  $.ajax({
+		   type: "GET",
+		   url: "/books",
+		   dataType: "json",
+		   success: function(json){
+				 $("#listOfBooks").html(template(json));
+				console.log(template(json));
+		   }
+		 });
+});
+</script>
